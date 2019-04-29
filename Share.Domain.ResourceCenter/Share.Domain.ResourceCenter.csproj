@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Repository\" />
+    <Folder Include="IService\" />
+    <Folder Include="Service\" />
+    <Folder Include="IRepository\" />
+    <Folder Include="Entity\" />
+    <Folder Include="AutoMapper\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+</Project>
