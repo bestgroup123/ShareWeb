@@ -8,13 +8,18 @@
     <Folder Include="IRepository\" />
     <Folder Include="Repository\" />
     <Folder Include="IService\" />
-    <Folder Include="Service\" />
     <Folder Include="AutoMapper\" />
     <Folder Include="Model\" />
+    <Folder Include="Service\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyNetQ" Version="3.5.1" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Share.Common\Share.Common.csproj" />
   </ItemGroup>
 
 </Project>

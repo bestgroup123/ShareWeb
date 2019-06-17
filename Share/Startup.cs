@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using EasyNetQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using SchoolPal.Toolkit.Caching;
 using SchoolPal.Toolkit.Caching.Redis;
 using Share.Domain.UserCenter.Entity;
+using Share.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Share
@@ -71,6 +74,8 @@ namespace Share
                     .AllowAnyOrigin();
                 });
             });
+            //rabbitmq
+            services.AddSingleton(RabbitHutch.CreateBus(Configuration["RabbitMQ:Dev"]));
         }
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -102,6 +107,9 @@ namespace Share
             app.UseCors("AllowAllOrigin");
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            //easynetq
+            app.UseSubscribe("ClientMessageService", Assembly.GetExecutingAssembly());
         }
     }
 }
