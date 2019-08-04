@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using SchoolPal.Toolkit.Caching;
 using SchoolPal.Toolkit.Caching.Redis;
 using Share.Domain.UserCenter.Entity;
 using Share.Extensions;
+using Share.Web.User.Repository;
 using Swashbuckle.AspNetCore.Swagger;
+using Share.Web.User.IServices;
+using Share.Web.User.Services;
 
 namespace Share
 {
@@ -54,6 +50,11 @@ namespace Share
                 c.IncludeXmlComments(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "Share.XML"));
                 c.DescribeAllEnumsAsStrings();
             });
+
+            //userdb context
+            services.AddDbContext<UserDBContext>(o => o.UseMySQL(Configuration.GetConnectionString("UserDBConnection")));
+            services.AddScoped<IUserService, UserService>();
+
             //mysql
             services.AddDbContext<MysqlDbContext>(options => options.UseMySQL(Configuration["MySql:MySqlConnection"]));
             DbContextOptions<MysqlDbContext> dbOptions = new DbContextOptionsBuilder<MysqlDbContext>().UseMySQL(Configuration["MySql:MySqlConnection"]).Options;

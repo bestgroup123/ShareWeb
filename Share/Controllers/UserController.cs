@@ -15,6 +15,18 @@ namespace Share.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        //新建用户
+        public bool CreateUser()
+        {
+            return true;
+        }
+        //登录
+        public bool UserLogin()
+        {
+            return true;
+        }
+        //编辑用户
+        //找回密码
         
     }
 }

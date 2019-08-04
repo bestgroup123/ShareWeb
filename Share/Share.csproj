@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Model\RequestModel\" />
+    <Folder Include="Model\ResponseModel\" />
     <Folder Include="wwwroot\" />
     <Folder Include="Authentication\" />
     <Folder Include="Filter\" />
@@ -28,6 +30,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Share.Common\Share.Common.csproj" />
     <ProjectReference Include="..\Share.Domain.UserCenter\Share.Domain.UserCenter.csproj" />
+    <ProjectReference Include="..\Share.Web.User.IServices\Share.Web.User.IServices.csproj" />
+    <ProjectReference Include="..\Share.Web.User.Repository\Share.Web.User.Repository.csproj" />
+    <ProjectReference Include="..\Share.Web.User.Services\Share.Web.User.Services.csproj" />
   </ItemGroup>
 
 </Project>
