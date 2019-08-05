@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Share.Common\Share.Common.csproj" />
+    <ProjectReference Include="..\Share.Domain.ResourceCenter\Share.Domain.ResourceCenter.csproj" />
     <ProjectReference Include="..\Share.Domain.UserCenter\Share.Domain.UserCenter.csproj" />
   </ItemGroup>
 

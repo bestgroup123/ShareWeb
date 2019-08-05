@@ -19,5 +19,10 @@ namespace Share.Domain.ResourceCenter.Entity
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<ResourceRepo> ResourceRepos { get; set; }
+
+        public DbSet<ResourceCommentRepo> ResourceCommentRepos { get; set; }
+        public DbSet<ResourceContentRepo> ResourceContentRepos { get; set; }
     }
 }
