@@ -5,16 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
-    <Folder Include="IService\" />
-    <Folder Include="Service\" />
-    <Folder Include="IRepository\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.17" />
+    <PackageReference Include="SchoolPal.Toolkit.Caching" Version="2.0.0" />
+    <PackageReference Include="SchoolPal.Toolkit.Caching.Redis" Version="2.0.3" />
     <PackageReference Include="SchoolPal.Toolkit.T4.DBModelHelper" Version="1.0.1" />
   </ItemGroup>
 
