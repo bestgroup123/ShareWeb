@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using SchoolPal.Toolkit.Caching;
 using SchoolPal.Toolkit.Caching.Redis;
-using Share.Domain.UserCenter.Entity;
+using Share.Domain.ResourceCenter.Entity;
 using Share.Extensions;
 using Share.Web.User.Repository;
 using Swashbuckle.AspNetCore.Swagger;
@@ -56,9 +56,10 @@ namespace Share
             services.AddScoped<IUserService, UserService>();
 
             //mysql
-            services.AddDbContext<MysqlDbContext>(options => options.UseMySQL(Configuration["MySql:MySqlConnection"]));
-            DbContextOptions<MysqlDbContext> dbOptions = new DbContextOptionsBuilder<MysqlDbContext>().UseMySQL(Configuration["MySql:MySqlConnection"]).Options;
-            MysqlDbContext.SetDefaultOptions(dbOptions);
+            //resource_db
+            services.AddDbContext<MysqlDb_Resource>(options => options.UseMySQL(Configuration["MySql:Connection_Resource"]));
+            DbContextOptions<MysqlDb_Resource> dbOptions = new DbContextOptionsBuilder<MysqlDb_Resource>().UseMySQL(Configuration["MySql:Connection_Resource"]).Options;
+            MysqlDb_Resource.SetDefaultOptions(dbOptions);
             //redis
             services.AddSingleton<ICache>(serviceProvider => new RedisCache(Configuration["Redis:Connection"]));
             //automapper
