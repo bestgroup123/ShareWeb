@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Entity\" />
     <Folder Include="IRepository\" />
     <Folder Include="IService\" />
     <Folder Include="Model\" />

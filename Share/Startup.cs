@@ -12,6 +12,8 @@ using Microsoft.Extensions.PlatformAbstractions;
 using SchoolPal.Toolkit.Caching;
 using SchoolPal.Toolkit.Caching.Redis;
 using Share.Domain.ResourceCenter.Entity;
+using Share.Domain.ResourceCenter.IService;
+using Share.Domain.ResourceCenter.Service;
 using Share.Extensions;
 using Share.Web.User.Repository;
 using Swashbuckle.AspNetCore.Swagger;
@@ -78,6 +80,9 @@ namespace Share
             });
             //rabbitmq
             services.AddSingleton(RabbitHutch.CreateBus(Configuration["RabbitMQ:Dev"]));
+
+            //add service
+            services.AddTransient<IResourceService, ResourceService>();
         }
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
