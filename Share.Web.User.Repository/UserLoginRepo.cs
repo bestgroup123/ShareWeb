@@ -16,7 +16,7 @@ namespace Share.Web.User.Repository
         /// </summary>
         public long Id { get; set; }
         /// <summary>
-        /// 用户名
+        /// 登录名
         /// </summary>
         public string LoginName { get; set; }
         /// <summary>

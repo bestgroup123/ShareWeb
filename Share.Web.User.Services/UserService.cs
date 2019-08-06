@@ -14,7 +14,7 @@ namespace Share.Web.User.Services
             this.db = db;
         }
 
-        public bool CreateUser()
+        public bool CreateUser(CreateUserDto dto)
         {
             var tran = db.Database.BeginTransaction();
             try

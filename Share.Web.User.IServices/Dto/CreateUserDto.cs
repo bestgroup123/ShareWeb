@@ -1,21 +1,14 @@
-﻿using Share.Web.User.IServices;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Share.Web.User.Repository
+namespace Share.Web.User.IServices
 {
     /// <summary>
-    /// 用户表
+    /// 创建用户Dto
     /// </summary>
-    [Table("user")]
-    public class UserRepo: DateEntity
+    public class CreateUserDto
     {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public long Id { get; set; }
         /// <summary>
         /// 用户名称
         /// </summary>
@@ -33,16 +26,12 @@ namespace Share.Web.User.Repository
         /// </summary>
         public string Phone { get; set; }
         /// <summary>
-        /// 是否删除
+        /// 密码
         /// </summary>
-        public bool IsDelete { get; set; }
+        public string Password { get; set; }
         /// <summary>
-        /// 注册时间
+        /// 头像
         /// </summary>
-        public DateTime RegistrationTime { get; set; }
-        /// <summary>
-        /// 用户登录Id
-        /// </summary>
-        public long UserLoginId { get; set; }
+        public string HeadImgUrl { get; set; }
     }
 }
