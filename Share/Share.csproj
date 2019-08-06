@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\RequestModel\" />
     <Folder Include="Model\ResponseModel\" />
     <Folder Include="wwwroot\" />
     <Folder Include="Authentication\" />

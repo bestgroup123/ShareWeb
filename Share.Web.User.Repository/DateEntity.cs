@@ -9,10 +9,10 @@ namespace Share.Web.User.Repository
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CraeteAt { get; set; }
+        public DateTime CraeteAt { get; set; } = DateTime.Now;
         /// <summary>
         /// 最后编辑时间
         /// </summary>
-        public DateTime LastEditAt { get; set; }
+        public DateTime LastEditAt { get; set; } = DateTime.Now;
     }
 }
