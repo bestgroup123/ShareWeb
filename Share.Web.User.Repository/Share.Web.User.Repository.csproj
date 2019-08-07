@@ -8,8 +8,4 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.17" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Share.Web.User.IServices\Share.Web.User.IServices.csproj" />
-  </ItemGroup>
-
 </Project>

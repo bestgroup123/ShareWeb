@@ -14,11 +14,11 @@ using SchoolPal.Toolkit.Caching.Redis;
 using Share.Domain.ResourceCenter.Entity;
 using Share.Domain.ResourceCenter.IService;
 using Share.Domain.ResourceCenter.Service;
+using Share.Domain.UserCenter.Entity;
+using Share.Domain.UserCenter.IService;
+using Share.Domain.UserCenter.Service;
 using Share.Extensions;
-using Share.Web.User.Repository;
 using Swashbuckle.AspNetCore.Swagger;
-using Share.Web.User.IServices;
-using Share.Web.User.Services;
 
 namespace Share
 {
@@ -55,7 +55,7 @@ namespace Share
 
             //userdb context
             services.AddDbContext<UserDBContext>(o => o.UseMySQL(Configuration.GetConnectionString("UserDBConnection")));
-            services.AddScoped<IUserService, UserService>();
+            services.AddTransient<IUserService, UserService>();
 
             //mysql
             //resource_db

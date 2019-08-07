@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using EasyNetQ;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Share.Common;
+using Share.Domain.UserCenter.IService;
+using Share.Domain.UserCenter.Model;
 using Share.Model;
-using Share.Web.User.IServices;
-using Share.Web.User.Repository;
 
 namespace Share.Controllers
 {
@@ -59,11 +60,24 @@ namespace Share.Controllers
             return result;
         }
 
-        //登录
-        public bool UserLogin()
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool UserLogin(UserLoginRequestModel model)
         {
-            return true;
+            //参数校验
+            model.Validate();
+            var dto = new UserLoginDto
+            {
+                LoginName = model.LoginName,
+                Password = model.Password
+            };
+            var result = _userService.UserLogin(dto);
+            return result;
         }
+
         //编辑用户
         //找回密码
 

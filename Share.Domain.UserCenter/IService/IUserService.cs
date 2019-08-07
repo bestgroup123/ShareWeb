@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Share.Domain.UserCenter.Model;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Share.Web.User.IServices
+namespace Share.Domain.UserCenter.IService
 {
     public interface IUserService
     {

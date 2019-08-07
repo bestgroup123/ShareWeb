@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Share.Web.Common;
 
 namespace Share.Web.User.Services
 {
@@ -44,7 +45,7 @@ namespace Share.Web.User.Services
                 var userLogin = new UserLoginRepo
                 {
                     LoginName = dto.LoginName,
-                    Password = dto.Password,//TODO:MD5加密
+                    Password = dto.Password.MD5Encrypt(),
                     HeadImgUrl = dto.HeadImgUrl,
                     CraeteAt = DateTime.Now,
                     LastEditAt = DateTime.Now
@@ -71,6 +72,27 @@ namespace Share.Web.User.Services
                 tran.Rollback();
                 throw ex;
             }
+        }
+
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public bool UserLogin(UserLoginDto dto)
+        {
+            //校验账户是否存在
+            var userLogin = db.UserLoginRepos.Where(o => o.LoginName == dto.LoginName).FirstOrDefault();
+            if (userLogin == null)
+            {
+                throw new Exception("账户不存在");
+            }
+            if (userLogin.Password != dto.Password.MD5Encrypt())
+            {
+                throw new Exception("密码错误");
+            }
+            //TODO 写入redis
+            return true;
         }
     }
 }

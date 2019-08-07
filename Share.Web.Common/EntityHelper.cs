@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Share.Web.User.Repository
+namespace Share.Web.Common
 {
     public static class EntityHelper
     {
