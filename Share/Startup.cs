@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Configuration;
+using System.IO;
 using System.Reflection;
 using AutoMapper;
 using EasyNetQ;
@@ -19,6 +20,8 @@ using Share.Domain.UserCenter.IService;
 using Share.Domain.UserCenter.Service;
 using Share.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
+using MongoDB.Driver;
+using Share.Domain.ErrorLogCenter.Entity;
 
 namespace Share
 {
@@ -80,9 +83,16 @@ namespace Share
             });
             //rabbitmq
             services.AddSingleton(RabbitHutch.CreateBus(Configuration["RabbitMQ:Dev"]));
-
+            
             //add service
             services.AddTransient<IResourceService, ResourceService>();
+
+            //mongodb
+            services.Configure<Settings>(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("MongoDb:ConnectionString").Value;
+                options.Database = Configuration.GetSection("MongoDb:Database").Value;
+            });
         }
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

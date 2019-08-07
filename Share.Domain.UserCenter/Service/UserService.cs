@@ -1,4 +1,6 @@
-﻿using Share.Common;
+﻿using SchoolPal.Toolkit.Caching;
+using SchoolPal.Toolkit.Caching.Redis;
+using Share.Common;
 using Share.Domain.UserCenter.Entity;
 using Share.Domain.UserCenter.IRepository;
 using Share.Domain.UserCenter.IService;
@@ -14,10 +16,15 @@ namespace Share.Domain.UserCenter.Service
     {
         private IUserRepository _userRepository;
         private IUserLoginRepository _userLoginRepository;
-        public UserService(IUserRepository userRepository, IUserLoginRepository userLoginRepository)
+        private ICache _cache;
+        private RedisCache _redis;
+
+        public UserService(IUserRepository userRepository, IUserLoginRepository userLoginRepository,ICache cache, RedisCache redis)
         {
             _userRepository = userRepository;
             _userLoginRepository = userLoginRepository;
+            _cache = cache;
+            _redis = redis;
         }
 
         /// <summary>
@@ -133,7 +140,9 @@ namespace Share.Domain.UserCenter.Service
             {
                 throw new Exception("密码错误");
             }
-            //TODO 写入redis
+            //写入redis
+            var expiry = DateTime.Now.AddHours(1);
+            _redis.Set("userloginid", loginUser.Id, expiry);
             return true;
         }
     }
