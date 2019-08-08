@@ -33,7 +33,7 @@ namespace Share.Extensions
             {
                 var subscriber = new AutoSubscriber(bus, subscriptionIdPrefix);
                 subscriber.Subscribe(assembly);
-                subscriber.SubscribeAsync(assembly);
+                ; subscriber.SubscribeAsync(assembly);
             });
             lifeTime.ApplicationStopped.Register(() => bus.Dispose());
             return appBuilder;

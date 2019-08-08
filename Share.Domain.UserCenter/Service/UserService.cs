@@ -40,7 +40,20 @@ namespace Share.Domain.UserCenter.Service
             try
             {
                 //校验
-                _userRepository.CreateValidate(_db, dto);
+                if (_db.UserLoginRepos.Any(o => o.LoginName == dto.LoginName))
+                {
+                    throw new ErrorException(ErrorType.LoginNameIsExist);
+                }
+                //校验手机号是否存在
+                if (string.IsNullOrWhiteSpace(dto.Phone) && _db.UserRepos.Any(o => o.Phone == dto.Phone))
+                {
+                    throw new ErrorException(ErrorType.PhoneIsExist);
+                }
+                //校验邮箱是否存在
+                if (string.IsNullOrWhiteSpace(dto.Email) && _db.UserRepos.Any(o => o.Email == dto.Email))
+                {
+                    throw new ErrorException(ErrorType.EmailIsExist);
+                }
                 //创建登录信息
                 var userLogin = new UserLoginRepo
                 {
@@ -84,11 +97,11 @@ namespace Share.Domain.UserCenter.Service
             var loginUser = _userLoginRepository.Get(_db, dto.LoginName);
             if (loginUser == null)
             {
-                throw new Exception("账户不存在");
+                throw new ErrorException(ErrorType.LoginNameIsNotExist);
             }
             if (loginUser.Password != dto.Password.MD5Encrypt())
             {
-                throw new Exception("密码错误");
+                throw new ErrorException(ErrorType.PasswordIsError);
             }
             //写入redis
             var expiry = DateTime.Now.AddHours(1);

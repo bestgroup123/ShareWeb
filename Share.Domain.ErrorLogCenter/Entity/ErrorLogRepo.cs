@@ -20,6 +20,6 @@ namespace Share.Domain.ErrorLogCenter.Entity
         [BsonElement("ErrorTime")]
         public DateTime ErrorTime { get; set; }
         [BsonElement("OperatorId")]
-        public long OperatorId { get; set; }
+        public string OperatorId { get; set; }
     }
 }

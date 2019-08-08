@@ -15,12 +15,5 @@ namespace Share.Domain.UserCenter.IRepository
         /// <param name="repo"></param>
         /// <returns></returns>
         long Create(UserDBContext db, UserRepo repo);
-
-        /// <summary>
-        /// 创建校验
-        /// </summary>
-        /// <param name="db"></param>
-        /// <param name="dto"></param>
-        void CreateValidate(UserDBContext db, CreateUserDto dto);
     }
 }

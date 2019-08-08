@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Share.Common;
 using Share.Domain.UserCenter.IService;
 using Share.Domain.UserCenter.Model;
+using Share.Filter;
 using Share.Model;
 
 namespace Share.Controllers
@@ -17,6 +18,7 @@ namespace Share.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(ErrorFilterAttribute))]
     public class UserController : ControllerBase
     {
         #region 构造函数

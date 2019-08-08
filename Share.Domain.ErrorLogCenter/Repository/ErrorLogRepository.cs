@@ -3,6 +3,7 @@ using Share.Domain.ErrorLogCenter.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Share.Domain.ErrorLogCenter.Repository
 {
@@ -15,9 +16,10 @@ namespace Share.Domain.ErrorLogCenter.Repository
             _mongodb = mongodb;
         }
 
-        public void Create()
+        public async Task<string> Create(ErrorLogRepo repo)
         {
-
+            await _mongodb.ErrorLogRepos.InsertOneAsync(repo);
+            return repo.Id;
         }
     }
 }
