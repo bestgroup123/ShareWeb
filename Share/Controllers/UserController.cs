@@ -38,6 +38,8 @@ namespace Share.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [HttpPost]
+        [Route("CreateUser")]
         public bool CreateUser(CreateUserRequestModel model)
         {
             //参数校验
@@ -65,6 +67,8 @@ namespace Share.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [HttpPost]
+        [Route("UserLogin")]
         public bool UserLogin(UserLoginRequestModel model)
         {
             //参数校验

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Share.Domain.ResourceCenter.Repository
 {
-    class ResourceRepository : IResourceRepository
+    public class ResourceRepository : IResourceRepository
     {
         protected MysqlDb_Resource _db;
 
@@ -22,18 +22,32 @@ namespace Share.Domain.ResourceCenter.Repository
         /// </summary>
         /// <param name="model">模型</param>
         /// <returns></returns>
-        public long Create(ResourceRepo model)
+        public long Create(ResourceRepo model, ResourceContentRepo resourceContent)
         {
-            _db.ResourceRepos.Add(model);
-            _db.SaveChanges();
-            return model.Id;
+            var tran = _db.Database.BeginTransaction();
+            try
+            {
+                _db.ResourceRepos.Add(model);
+                _db.SaveChanges();
+                resourceContent.ResourceId = model.Id;
+                _db.ResourceContentRepos.Add(resourceContent);
+                _db.SaveChanges();
+                tran.Commit();
+                return model.Id;
+            }
+            catch (Exception e)
+            {
+                tran.Rollback();
+                throw e;
+            }
         }
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="model">模型</param>
+        /// <param name="resourceContent"></param>
         /// <returns></returns>
-        public bool Edit(ResourceRepo model)
+        public bool Edit(ResourceRepo model, ResourceContentRepo resourceContent)
         {
             var entity = _db.ResourceRepos.FirstOrDefault(p => p.Id == model.Id && !p.Delete);
             if (entity != null)
@@ -42,6 +56,11 @@ namespace Share.Domain.ResourceCenter.Repository
                 entity.LastEditBy = model.LastEditBy;
                 entity.LastEditAt = model.LastEditAt;
                 entity.Version = model.Version;
+                var content = _db.ResourceContentRepos.FirstOrDefault(p => p.ResourceId == entity.Id);
+                if (content != null)
+                {
+                    content.Content = resourceContent.Content;
+                }
                 _db.SaveChanges();
                 return true;
             }
