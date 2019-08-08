@@ -12,6 +12,9 @@ namespace Share.Domain.ResourceCenter.AutoMapper
         public ResourceProfile()
         {
             CreateMap<ResourceModel, ResourceRepo>();
+            CreateMap<ResourceRepo, ResourceModel>();
+            CreateMap<List<ResourceCommentRepo>, List<ResourceCommentModel>>();
+            CreateMap<List<ResourceRepo>, List<ResourceModel>>();
         }
     }
 }

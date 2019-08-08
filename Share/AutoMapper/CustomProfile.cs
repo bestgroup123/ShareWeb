@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Share.Domain.ResourceCenter.Model;
 using Share.Model;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Share.AutoMapper
         /// </summary>
         public CustomProfile()
         {
-            CreateMap<Class, Class1>();
+            CreateMap<ResourceModel, ResourceDetailDto>();
         }
     }
 }

@@ -12,14 +12,16 @@ namespace Share.Domain.ResourceCenter.IRepository
         /// 创建
         /// </summary>
         /// <param name="model">模型</param>
+        /// <param name="resourceContent"></param>
         /// <returns></returns>
-        long Create(ResourceRepo model);
+        long Create(ResourceRepo model, ResourceContentRepo resourceContent);
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="model">模型</param>
+        /// <param name="resourceContent"></param>
         /// <returns></returns>
-        bool Edit(ResourceRepo model);
+        bool Edit(ResourceRepo model, ResourceContentRepo resourceContent);
         /// <summary>
         /// 获取资源
         /// </summary>

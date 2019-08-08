@@ -22,6 +22,8 @@ using Share.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
 using MongoDB.Driver;
 using Share.Domain.ErrorLogCenter.Entity;
+using Share.AutoMapper;
+using Share.Domain.ResourceCenter.AutoMapper;
 
 namespace Share
 {
@@ -68,7 +70,11 @@ namespace Share
             //redis
             services.AddSingleton<ICache>(serviceProvider => new RedisCache(Configuration["Redis:Connection"]));
             //automapper
-            services.AddAutoMapper();
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile<CustomProfile>();
+                config.AddProfile<ResourceProfile>();
+            });
             //CORS
             services.AddCors(options =>
             {
