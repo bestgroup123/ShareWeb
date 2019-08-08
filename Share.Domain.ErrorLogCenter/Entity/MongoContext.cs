@@ -15,5 +15,8 @@ namespace Share.Domain.ErrorLogCenter.Entity
             var client = new MongoClient(options.Value.ConnectionString);
             _db = client.GetDatabase(options.Value.Database);
         }
+
+        public IMongoCollection<ErrorLogRepo> ErrorLogRepos => _db.GetCollection<ErrorLogRepo>("errorlog");
+
     }
 }

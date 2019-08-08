@@ -14,7 +14,7 @@ namespace Share.Domain.UserCenter.Service
 {
     public class UserService : IUserService
     {
-        private UserDBContext db;
+        private UserDBContext _db;
         private IUserRepository _userRepository;
         private IUserLoginRepository _userLoginRepository;
         private ICache _cache;
@@ -26,7 +26,7 @@ namespace Share.Domain.UserCenter.Service
             _userLoginRepository = userLoginRepository;
             _cache = cache;
             _redis = redis;
-            this.db = db;
+            this._db = db;
         }
 
         /// <summary>
@@ -36,11 +36,11 @@ namespace Share.Domain.UserCenter.Service
         /// <returns></returns>
         public bool CreateUser(CreateUserDto dto)
         {
-            var tran = db.Database.BeginTransaction();
+            var tran = _db.Database.BeginTransaction();
             try
             {
                 //校验
-                _userRepository.CreateValidate(db, dto);
+                _userRepository.CreateValidate(_db, dto);
                 //创建登录信息
                 var userLogin = new UserLoginRepo
                 {
@@ -50,9 +50,9 @@ namespace Share.Domain.UserCenter.Service
                     CraeteAt = DateTime.Now,
                     LastEditAt = DateTime.Now
                 };
-                _userLoginRepository.Create(db,userLogin);
+                _userLoginRepository.Create(_db,userLogin);
                 //创建用户
-                _userRepository.Create(db, new UserRepo
+                _userRepository.Create(_db, new UserRepo
                 {
                     UserName = dto.UserName,
                     Sex = dto.Sex,
@@ -81,7 +81,7 @@ namespace Share.Domain.UserCenter.Service
         public bool UserLogin(UserLoginDto dto)
         {
             //校验账户是否存在
-            var loginUser = _userLoginRepository.Get(db, dto.LoginName);
+            var loginUser = _userLoginRepository.Get(_db, dto.LoginName);
             if (loginUser == null)
             {
                 throw new Exception("账户不存在");
