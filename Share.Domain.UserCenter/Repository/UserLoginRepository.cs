@@ -8,18 +8,13 @@ namespace Share.Domain.UserCenter.Repository
 {
     public class UserLoginRepository
     {
-        private UserDBContext db;
-        public UserLoginRepository(UserDBContext db)
-        {
-            this.db = db;
-        }
-
         /// <summary>
         /// 创建用户账户
         /// </summary>
+        /// <param name="db"></param>
         /// <param name="repo"></param>
         /// <returns></returns>
-        public long Create(UserLoginRepo repo)
+        public long Create(UserDBContext db,UserLoginRepo repo)
         {
             db.UserLoginRepos.Add(repo);
             db.SaveChanges();
@@ -29,9 +24,10 @@ namespace Share.Domain.UserCenter.Repository
         /// <summary>
         /// 获取账户
         /// </summary>
+        /// <param name="db"></param>
         /// <param name="loginName"></param>
         /// <returns></returns>
-        public UserLoginRepo Get(string loginName)
+        public UserLoginRepo Get(UserDBContext db,string loginName)
         {
             return db.UserLoginRepos.Where(o => o.LoginName == loginName).FirstOrDefault();
         }

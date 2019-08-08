@@ -1,4 +1,5 @@
 ﻿using Share.Domain.UserCenter.Entity;
+using Share.Domain.UserCenter.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,8 +11,16 @@ namespace Share.Domain.UserCenter.IRepository
         /// <summary>
         /// 创建用户
         /// </summary>
+        /// <param name="db"></param>
         /// <param name="repo"></param>
         /// <returns></returns>
-        long Create(UserRepo repo);
+        long Create(UserDBContext db, UserRepo repo);
+
+        /// <summary>
+        /// 创建校验
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="dto"></param>
+        void CreateValidate(UserDBContext db, CreateUserDto dto);
     }
 }
