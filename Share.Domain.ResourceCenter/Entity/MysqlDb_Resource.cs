@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
 
 namespace Share.Domain.ResourceCenter.Entity
 {
@@ -16,7 +18,8 @@ namespace Share.Domain.ResourceCenter.Entity
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {     
+            modelBuilder.Entity<ResourceRepo>().Property(r => r.Delete).HasConversion(new BoolToZeroOneConverter<Int16>());
             base.OnModelCreating(modelBuilder);
         }
 

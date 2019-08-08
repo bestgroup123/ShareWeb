@@ -41,7 +41,7 @@ namespace Share.Controllers
         [Route("Create")]
         public long Create(CreateResourceDto dto)
         {
-            var currentUserId = 0;
+            var currentUserId = 1;
             if (string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.Content))
             {
                 throw new Exception("格式不正确");

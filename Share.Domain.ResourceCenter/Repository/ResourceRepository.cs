@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Share.Domain.ResourceCenter.Repository
 {
-    class ResourceRepository : IResourceRepository
+    public class ResourceRepository : IResourceRepository
     {
         protected MysqlDb_Resource _db;
 
