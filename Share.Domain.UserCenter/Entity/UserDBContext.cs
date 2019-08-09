@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,26 @@ namespace Share.Domain.UserCenter.Entity
 {
     public class UserDBContext : DbContext
     {
+
+        static DbContextOptions<UserDBContext> _defaultOptions = null;
+        public static void SetDefaultOptions(DbContextOptions<UserDBContext> options)
+        {
+            _defaultOptions = options;
+        }
+        public UserDBContext() : base(_defaultOptions)
+        {
+        }
+
+
         public UserDBContext(DbContextOptions<UserDBContext> options) : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserRepo>().Property(r => r.IsDelete).HasConversion(new BoolToZeroOneConverter<Int16>());
+            base.OnModelCreating(modelBuilder);
         }
 
         /// <summary>
@@ -24,6 +42,7 @@ namespace Share.Domain.UserCenter.Entity
         /// </summary>
         public DbSet<UserRepo> UserRepos { get; set; }
     }
+
 
     public static class Extend
     {
