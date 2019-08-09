@@ -1,4 +1,5 @@
 ﻿using Share.Domain.UserCenter.Entity;
+using Share.Domain.UserCenter.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Share.Domain.UserCenter.Repository
 {
-    public class UserLoginRepository
+    public class UserLoginRepository: IUserLoginRepository
     {
         /// <summary>
         /// 创建用户账户

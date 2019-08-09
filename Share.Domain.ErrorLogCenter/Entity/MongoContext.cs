@@ -10,10 +10,10 @@ namespace Share.Domain.ErrorLogCenter.Entity
     {
         private readonly IMongoDatabase _db;
 
-        public MongoContext(IOptions<Settings> options)
+        public MongoContext(string s1,string s2)
         {
-            var client = new MongoClient(options.Value.ConnectionString);
-            _db = client.GetDatabase(options.Value.Database);
+            var client = new MongoClient(s1);
+            _db = client.GetDatabase(s2);
         }
 
         public IMongoCollection<ErrorLogRepo> ErrorLogRepos => _db.GetCollection<ErrorLogRepo>("errorlog");

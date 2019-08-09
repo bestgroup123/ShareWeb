@@ -5,13 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="IServices\" />
-    <Folder Include="Services\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+    <PackageReference Include="SchoolPal.Toolkit.Caching" Version="2.0.0" />
+    <PackageReference Include="SchoolPal.Toolkit.Caching.Redis" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>

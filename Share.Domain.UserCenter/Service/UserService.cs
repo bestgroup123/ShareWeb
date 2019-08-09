@@ -1,5 +1,4 @@
 ﻿using SchoolPal.Toolkit.Caching;
-using SchoolPal.Toolkit.Caching.Redis;
 using Share.Common;
 using Share.Domain.UserCenter.Entity;
 using Share.Domain.UserCenter.IRepository;
@@ -18,14 +17,12 @@ namespace Share.Domain.UserCenter.Service
         private IUserRepository _userRepository;
         private IUserLoginRepository _userLoginRepository;
         private ICache _cache;
-        private RedisCache _redis;
 
-        public UserService(IUserRepository userRepository, IUserLoginRepository userLoginRepository,ICache cache, RedisCache redis, UserDBContext db)
+        public UserService(IUserRepository userRepository, IUserLoginRepository userLoginRepository,ICache cache, UserDBContext db)
         {
             _userRepository = userRepository;
             _userLoginRepository = userLoginRepository;
             _cache = cache;
-            _redis = redis;
             this._db = db;
         }
 
@@ -105,7 +102,7 @@ namespace Share.Domain.UserCenter.Service
             }
             //写入redis
             var expiry = DateTime.Now.AddHours(1);
-            _redis.Set("userloginid", loginUser.Id, expiry);
+            _cache.Set("userloginid", loginUser.Id, expiry);
             return true;
         }
     }

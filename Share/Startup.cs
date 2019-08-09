@@ -26,6 +26,13 @@ using Share.AutoMapper;
 using Share.Domain.ResourceCenter.AutoMapper;
 using Share.Domain.ResourceCenter.IRepository;
 using Share.Domain.ResourceCenter.Repository;
+using Share.Domain.ErrorLogCenter.IServices;
+using Share.Domain.ErrorLogCenter.Services;
+using Share.Filter;
+using Share.Domain.ErrorLogCenter.Repository;
+using Share.Domain.ErrorLogCenter.IRepository;
+using Share.Domain.UserCenter.IRepository;
+using Share.Domain.UserCenter.Repository;
 
 namespace Share
 {
@@ -61,8 +68,10 @@ namespace Share
             });
 
             //userdb context
-            services.AddDbContext<UserDBContext>(o => o.UseMySQL(Configuration.GetConnectionString("UserDBConnection")));
+            services.AddDbContext<UserDBContext>(options => options.UseMySQL(Configuration["MySql:UserDBConnection"]));
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserLoginRepository, UserLoginRepository>();
 
             //mysql
             //resource_db
@@ -97,10 +106,15 @@ namespace Share
             services.AddTransient<IResourceService, ResourceService>();
 
             //mongodb
-            services.Configure<Settings>(options =>
+            services.AddSingleton(serviceprovider => new MongoContext(Configuration.GetSection("MongoDb:ConnectionString").Value, Configuration.GetSection("MongoDb:Database").Value));
+
+            services.AddTransient<IErrorLogService, ErrorLogService>();
+            services.AddTransient<IErrorLogRepository, ErrorLogRepository>();
+
+            //filter
+            services.AddMvc(options =>
             {
-                options.ConnectionString = Configuration.GetSection("MongoDb:ConnectionString").Value;
-                options.Database = Configuration.GetSection("MongoDb:Database").Value;
+                options.Filters.Add(typeof(ErrorFilterAttribute));
             });
         }
         /// <summary>

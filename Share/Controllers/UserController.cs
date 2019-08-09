@@ -18,7 +18,7 @@ namespace Share.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [ServiceFilter(typeof(ErrorFilterAttribute))]
+    //[ServiceFilter(typeof(ErrorFilterAttribute))]
     public class UserController : ControllerBase
     {
         #region 构造函数
