@@ -37,17 +37,17 @@ namespace Share.Domain.UserCenter.Service
             try
             {
                 //校验
-                if (_db.UserLoginRepos.Any(o => o.LoginName == dto.LoginName))
+                if (_db.UserLoginRepos.FirstOrDefault(o => o.LoginName == dto.LoginName) != null)
                 {
                     throw new ErrorException(ErrorType.LoginNameIsExist);
                 }
                 //校验手机号是否存在
-                if (string.IsNullOrWhiteSpace(dto.Phone) && _db.UserRepos.Any(o => o.Phone == dto.Phone))
+                if (string.IsNullOrWhiteSpace(dto.Phone) && _db.UserRepos.FirstOrDefault(o => o.Phone == dto.Phone) != null)
                 {
                     throw new ErrorException(ErrorType.PhoneIsExist);
                 }
                 //校验邮箱是否存在
-                if (string.IsNullOrWhiteSpace(dto.Email) && _db.UserRepos.Any(o => o.Email == dto.Email))
+                if (string.IsNullOrWhiteSpace(dto.Email) && _db.UserRepos.FirstOrDefault(o => o.Email == dto.Email) != null)
                 {
                     throw new ErrorException(ErrorType.EmailIsExist);
                 }
@@ -57,7 +57,7 @@ namespace Share.Domain.UserCenter.Service
                     LoginName = dto.LoginName,
                     Password = dto.Password.MD5Encrypt(),
                     HeadImgUrl = dto.HeadImgUrl,
-                    CraeteAt = DateTime.Now,
+                    CreateAt = DateTime.Now,
                     LastEditAt = DateTime.Now
                 };
                 _userLoginRepository.Create(_db,userLogin);
@@ -71,7 +71,7 @@ namespace Share.Domain.UserCenter.Service
                     IsDelete = false,
                     RegistrationTime = DateTime.Now,
                     UserLoginId = userLogin.Id,
-                    CraeteAt = DateTime.Now,
+                    CreateAt = DateTime.Now,
                 });
                 tran.Commit();
                 return true;

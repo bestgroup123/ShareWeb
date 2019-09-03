@@ -9,7 +9,7 @@ namespace Share.Domain.UserCenter.Entity
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CraeteAt { get; set; } = DateTime.Now;
+        public DateTime CreateAt { get; set; } = DateTime.Now;
         /// <summary>
         /// 最后编辑时间
         /// </summary>
